@@ -19,6 +19,7 @@
         android:layout_marginLeft="16dp"/>
 
     <LinearLayout
+        android:id="@id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="90dp"
@@ -30,7 +31,7 @@
 
 
         <EditText
-            android:id="@+id/emailEdt"
+            android:id="@+id/emailLIEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="12dp"
@@ -39,7 +40,7 @@
             android:hint="@string/email"/>
 
         <EditText
-            android:id="@+id/passwordEdt"
+            android:id="@+id/passwordLIEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -79,7 +80,18 @@
         </LinearLayout>
 
 
+
     </LinearLayout>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/progress_login"
+        android:visibility="gone"/>
+
+
 
     <Button
         android:id="@+id/loginBtn"
@@ -112,15 +124,16 @@
         android:layout_marginHorizontal="25dp"
         android:layout_marginBottom="20dp"
         android:textColor="@color/white"
-        android:layout_above="@id/textBackToLogin"
+        android:layout_above="@id/tvSignUp"
         />
 
 
     <TextView
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_account_sign_up"
-        android:id="@+id/textBackToLogin"
+        android:id="@+id/tvSignUp"
         android:textColor="@color/colorGreen"
         android:layout_alignParentBottom="true"
         android:textSize="17sp"

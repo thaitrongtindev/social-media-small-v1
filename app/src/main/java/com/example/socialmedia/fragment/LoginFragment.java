@@ -1,59 +1,46 @@
 package com.example.socialmedia.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.socialmedia.MainActivity;
 import com.example.socialmedia.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LoginFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class LoginFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private EditText emailEdt, passwordEdt;
+    private TextView signUpTv, forgotPasswordTv;
+    private Button loginBtn, googleSignUpBtn, facebookSignUpBtn;
+    private ProgressBar progressBar;
+    private CheckBox rememberCheckBox;
 
-    public LoginFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LoginFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LoginFragment newInstance(String param1, String param2) {
-        LoginFragment fragment = new LoginFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
+    private FirebaseAuth mAuth;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
@@ -62,5 +49,89 @@ public class LoginFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        init(view);
+        clickListener();
+
+    }
+
+    private void clickListener() {
+        loginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
+                clickLogin();
+            }
+        });
+
+        googleSignUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickGoogleLogin();
+            }
+        });
+
+        facebookSignUpBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clickFacebookLogin();
+            }
+        });
+
+    }
+
+    private void clickFacebookLogin() {
+    }
+
+    private void clickGoogleLogin() {
+    }
+
+    private void clickLogin() {
+        String email = emailEdt.getText().toString();
+        String pass = passwordEdt.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, pass)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            progressBar.setVisibility(View.GONE);
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            if (!user.isEmailVerified()) {
+                                Toast.makeText(getContext(), "Please verify your email", Toast.LENGTH_SHORT).show();
+                            }
+
+                            sendUserToMainActivity();
+
+                        }
+                    }
+                });
+    }
+
+    private void sendUserToMainActivity() {
+
+        startActivity(new Intent(getContext().getApplicationContext(), MainActivity.class));
+        getActivity().finish();
+    }
+
+    private void init(View view) {
+        emailEdt = view.findViewById(R.id.emailLIEdt);
+        passwordEdt = view.findViewById(R.id.passwordLIEdt);
+        rememberCheckBox = view.findViewById(R.id.checkboxRememberPass);
+        signUpTv = view.findViewById(R.id.tvSignUp);
+        forgotPasswordTv = view.findViewById(R.id.tvForgotPassword);
+        facebookSignUpBtn = view.findViewById(R.id.facebookLoginBtn);
+        googleSignUpBtn = view.findViewById(R.id.googleLoginBtn);
+        loginBtn = view.findViewById(R.id.loginBtn);
+
+        progressBar = view.findViewById(R.id.progress_login);
+
+
+        mAuth = FirebaseAuth.getInstance();
+
     }
 }
