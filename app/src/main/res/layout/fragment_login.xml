@@ -7,6 +7,7 @@
     tools:context=".fragment.CreateAccountFragment">
 
     <TextView
+        android:id="@+id/tvLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="24sp"
@@ -20,8 +21,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_marginTop="90dp"
+        android:layout_below="@id/tvLogin"
+        android:orientation="vertical">
+
+
 
 
 
@@ -38,21 +42,41 @@
             android:id="@+id/passwordEdt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="12dp"
             android:layout_margin="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/text_box"
-            android:hint="@string/password"/>
+            android:hint="@string/password"
+            android:padding="12dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Forgot Password"
-            android:textSize="15sp"
-            android:textColor="@color/colorGreen"
-            android:layout_gravity="end"
-            android:layout_marginEnd="16dp"
-            android:id="@+id/tvForgotPassword"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
+            <CheckBox
+                android:id="@+id/checkboxRememberPass"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorGreen"
+                android:layout_marginStart="13dp"
+                android:text="Remember Password"/>
+
+            <TextView
+                android:id="@+id/tvForgotPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="101dp"
+                android:layout_marginEnd="16dp"
+                android:gravity="end"
+                android:text="Forgot Password"
+                android:textColor="@color/colorGreen"
+                android:textSize="15sp" />
+
+        </LinearLayout>
 
 
     </LinearLayout>
@@ -72,7 +96,18 @@
         android:id="@+id/googleLoginBtn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sign in with Google"
+        android:text="@string/sign_in_with_google"
+        android:background="@drawable/button_bg"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/white"
+        android:layout_above="@id/facebookLoginBtn"
+        />
+    <Button
+        android:id="@+id/facebookLoginBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_with_facebook"
         android:background="@drawable/button_bg"
         android:layout_marginHorizontal="25dp"
         android:layout_marginBottom="20dp"
@@ -80,10 +115,11 @@
         android:layout_above="@id/textBackToLogin"
         />
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Create Account, Sign Up"
+        android:text="@string/create_account_sign_up"
         android:id="@+id/textBackToLogin"
         android:textColor="@color/colorGreen"
         android:layout_alignParentBottom="true"

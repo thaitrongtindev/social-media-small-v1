@@ -17,4 +17,7 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="create_account_sign_up">Create Account, Sign Up</string>
+    <string name="sign_in_with_facebook">Sign in with Facebook</string>
 </resources>
